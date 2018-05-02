@@ -26,7 +26,7 @@ SECRET_KEY = 'g2_=ea-_z7!j=yi^%16680*67ooyi*$+i!0a*hzqwy$%w(+rm7'
 DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com', 'www.rameshho.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com', 'rameshho.pythonanywhere.com']
 
 
 # Application definition
