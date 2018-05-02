@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g2_=ea-_z7!j=yi^%16680*67ooyi*$+i!0a*hzqwy$%w(+rm7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com', 'rameshho.pythonanywhere.com']
+ALLOWED_HOSTS = ['rameshho.pythonanywhere.com']
 
 
 # Application definition
@@ -121,9 +120,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-#PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/fertilizers/'
-LOGOUT_REDIRECT_URL = '/login/'
-LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_URL = '/accounts/login/'
