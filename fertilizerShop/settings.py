@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'SugureshwaraFertilizerShop.urls'
+ROOT_URLCONF = 'fertilizerShop.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SugureshwaraFertilizerShop.wsgi.application'
+WSGI_APPLICATION = 'fertilizerShop.wsgi.application'
 
 
 # Database
