@@ -1,0 +1,47 @@
+{% extends 'fertilizers/base.html' %}
+{% block body %}
+        {% if all_companies %}
+            <h2>Here are all my company details:</h2>
+            <div style="background-color:lightblue">
+            <table class="table table-bordered">
+                <thead>
+                    <th>Company Name</th>
+                    <th>Amount_To_Pay</th>
+                    <th>Actions</th>
+                </thead>
+                {% for company in all_companies %}
+                    <tr>
+                        <td>{{ company.Name }}</td>
+                        <td>{{ company.Amount_To_Pay }}</td>
+                        <td>
+                            <!-- Detail -->
+                            <form action="{% url 'fertilizers:Detail-company' company.id %}" method="get" style="display:inline"">
+                                {% csrf_token %}
+                                <input type="hidden" name="company_id" value="company.id"/>
+                                <button type="submit" class="btn btn-default btn-sm">ProductList</button>
+                            </form>
+
+                            <!-- Update -->
+                            <form action="{% url 'fertilizers:Update-company' company.id %}" method="" style="display:inline" onsubmit="return confirm('Sure you want to update');">
+                                {% csrf_token %}
+                                <input type="hidden" name="company_id" value="company.id"/>
+                                <button type="submit" class="btn btn-default btn-sm">Update</button>
+                            </form>
+
+                            <!-- Delete -->
+                            <form action="{% url 'fertilizers:Delete-company' company.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure to delete');">
+                                {% csrf_token %}
+                                <input type="hidden" name="company_id" value="company.id"/>
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            </div>
+        {% else %}
+            <h2>You don't have any company lists to display</h2>
+        {% endif %}
+{% endblock %}

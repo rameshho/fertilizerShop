@@ -1,0 +1,70 @@
+{% extends 'fertilizers/base.html' %}
+{% block title %}{{ company.Name }} contains product {% endblock %}
+{% block product %}
+    <a href="{% url 'fertilizers:Add-product'  company.id %}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Product
+    </a>
+{% endblock %}
+{% block body %}
+{% if company.product_set.all %}
+    <div class="container-fluid" style="background-color:lightblue">
+        <h3>Below are the list of products of company {{ company.Name }}</h3>
+        <p>Type something in the input field to search the table for name, product name, seller name:</p>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <th>Name</th>
+                <th>Seller_name</th>
+                <th>Contact_Number</th>
+                <th>Count</th>
+                <th>Price_Per_Piece</th>
+                <th>Total_Amount</th>
+                <th>Actions</th>
+            </thead>
+            {% for product in company.product_set.all %}
+            <tbody id="myTable">
+            <tr>
+                <td>{{ product.Name }}</td>
+                <td>{{ product.Seller_name }}</td>
+                <td>{{ product.Contact_Number }}</td>
+                <td>{{ product.Count }}</td>
+                <td>&#8377;{{ product.Price_Per_Piece }}</td>
+                <td>&#8377;{{ product.Total_Amount }}</td>
+                <td>
+                    <!-- Update -->
+                    <form action="{% url 'fertilizers:Update-product' product.id %}" method="" style="display:inline" onsubmit="return confirm('Sure you want to update');">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="product.id"/>
+                        <button type="submit" class="btn btn-default btn-sm">Update</button>
+                    </form>
+
+                    <!-- Delete -->
+                    <form action="{% url 'fertilizers:Delete-product' product.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure to delete');">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="product.id"/>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <h2>No products present for company {{ company.Name }}</h2>
+{% endif %}
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}
