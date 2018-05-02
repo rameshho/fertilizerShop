@@ -25,7 +25,7 @@ SECRET_KEY = 'g2_=ea-_z7!j=yi^%16680*67ooyi*$+i!0a*hzqwy$%w(+rm7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rameshho.pythonanywhere.com']
 
 
 # Application definition
