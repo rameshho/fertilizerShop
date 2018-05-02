@@ -22,7 +22,8 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     #url('', TemplateView.as_view(template_name='fertilizers/index.html'), name='home'),
     url(r'^admin/', admin.site.urls),
-    url('accounts/', include('django.contrib.auth.urls')),
+    #url('accounts/', include('django.contrib.auth.urls')),
+    url('^', include('django.contrib.auth.urls')),
     url(r'^fertilizers/', include('fertilizers.urls', namespace='fertilizers')),
     #url(r'^$', TemplateView.as_view(template_name='static_pages/index.html'),name='home'),
 ]
