@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, request
+from django.http import HttpResponse, request, HttpResponseRedirect
 from django.views import generic, View
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
@@ -44,6 +44,16 @@ class CreateViewCompany(CreateView):
     #form_class = Company
     success_url = reverse_lazy('fertilizers:index')
 
+    def get_success_url(self):
+        return reverse_lazy('fertilizers:index')
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super(CreateViewCompany, self).post(request, *args, **kwargs)
+
 
 class UpdateViewCompany(UpdateView):
     model = Company
@@ -60,7 +70,7 @@ class DeleteViewCompany(DeleteView):
 class CreateViewProduct(CreateView):
     #By default createview will cal <model_name>_form.html template, in this case, will call product_form html template
     model = Product
-    fields = ['Name', 'Seller_name', 'Contact_Number', 'Count', 'Price_Per_Piece',]# 'Total_Amount']
+    fields = ['Date', 'Name', 'Opening_Balance', 'Receipt', 'Sale', 'Invoice_Number']# 'Total_Amount']
 
     def get_success_url(self):
         return reverse_lazy('fertilizers:Detail-company', kwargs={'pk': self.kwargs.get('pk')})
@@ -69,11 +79,17 @@ class CreateViewProduct(CreateView):
         form.instance.company = Company.objects.get(id=self.kwargs.get('pk'))
         return super(CreateViewProduct, self).form_valid(form)
 
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super(CreateViewProduct, self).post(request, *args, **kwargs)
 
 class UpdateViewProduct(UpdateView):
     model = Product
     parent_model = Company
-    fields = ['Name', 'Seller_name', 'Contact_Number', 'Count', 'Price_Per_Piece',]
+    fields = ['Date', 'Name', 'Opening_Balance', 'Receipt', 'Sale', 'Invoice_Number']# 'Total_Amount']
 
     def get_success_url(self):
         obj = self.get_object()

@@ -15,7 +15,7 @@
                         <td>{{ company.Amount_To_Pay }}</td>
                         <td>
                             <!-- Detail -->
-                            <form action="{% url 'fertilizers:Detail-company' company.id %}" method="get" style="display:inline"">
+                            <form action="{% url 'fertilizers:Detail-company' company.id %}" method="get" style="display:inline">
                                 {% csrf_token %}
                                 <input type="hidden" name="company_id" value="company.id"/>
                                 <button type="submit" class="btn btn-default btn-sm">ProductList</button>

@@ -14,23 +14,27 @@
         <br>
         <table class="table table-bordered">
             <thead>
+                <th>Date</th>
                 <th>Name</th>
-                <th>Seller_name</th>
-                <th>Contact_Number</th>
-                <th>Count</th>
-                <th>Price_Per_Piece</th>
-                <th>Total_Amount</th>
-                <th>Actions</th>
+                <th>Opening Balance</th>
+                <th>Receipt</th>
+                <th>Total</th>
+                <th>Sale</th>
+                <th>Closing Balance</th>
+                <th>Invoice Number</th>
             </thead>
             {% for product in company.product_set.all %}
             <tbody id="myTable">
             <tr>
+                <td>{{ product.Date }}</td>
                 <td>{{ product.Name }}</td>
-                <td>{{ product.Seller_name }}</td>
-                <td>{{ product.Contact_Number }}</td>
-                <td>{{ product.Count }}</td>
-                <td>&#8377;{{ product.Price_Per_Piece }}</td>
-                <td>&#8377;{{ product.Total_Amount }}</td>
+                <td>{{ product.Opening_Balance }}</td>
+                <td>{{ product.Receipt }}</td>
+                <td>{{ product.Total }}</td>
+                <td>{{ product.Sale }}</td>
+                <td>{{ product.Closing_Balance }}</td>
+                <td>{{ product.Invoice_Number }}</td>
+
                 <td>
                     <!-- Update -->
                     <form action="{% url 'fertilizers:Update-product' product.id %}" method="" style="display:inline" onsubmit="return confirm('Sure you want to update');">
