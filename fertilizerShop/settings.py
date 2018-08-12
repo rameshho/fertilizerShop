@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fertilizers.apps.FertilizersConfig',
     'django_tables2',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

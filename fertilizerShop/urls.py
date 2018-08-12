@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
+from rest_framework.urlpatterns import format_suffix_patterns
+from fertilizers import views
 
 urlpatterns = [
     #url('', TemplateView.as_view(template_name='fertilizers/index.html'), name='home'),
@@ -25,8 +27,12 @@ urlpatterns = [
     #url('accounts/', include('django.contrib.auth.urls')),
     url('^', include('django.contrib.auth.urls')),
     url(r'^fertilizers/', include('fertilizers.urls', namespace='fertilizers')),
+    url(r'^companies/', views.CompanyList.as_view()),
+    url(r'^company/<int:pk>/$', views.ProductList.as_view()),
     #url(r'^$', TemplateView.as_view(template_name='static_pages/index.html'),name='home'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from .models import Product, Company
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, CompanySerializer
 from django_tables2 import RequestConfig
 from rest_framework import status
 from .tables import CompanyTable
@@ -139,14 +139,34 @@ class UserFormView(View):
 
         return render(request, self.template_name, {'form': form})
 
-class AlbumList(APIView):
-    def get(self, request):
-        Albums = Product.objects.all()
-        serializer = ProductSerializer(Product, many=True)
+class ProductList(APIView):
+    def get(self, request, pk):
+        products = Company.objects.get(id=pk)
+
+
+        #This will tell you what objects you want to serialize
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         serializer = ProductSerializer(data=request.data, files=request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#Access companies list through this api  http://127.0.0.1:8000/companies/?format=api
+class CompanyList(APIView):
+    def get(self, request):
+        companies = Company.objects.all()
+
+        #This will tell you what objects you want to serialize
+        serializer = CompanySerializer(companies, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CompanySerializer(data=request.data, files=request.FILES)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
