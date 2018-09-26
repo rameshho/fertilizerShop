@@ -28,7 +28,7 @@ urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
     url(r'^fertilizers/', include('fertilizers.urls', namespace='fertilizers')),
     url(r'^companies/', views.CompanyList.as_view()),
-    url(r'^company/<int:pk>/$', views.ProductList.as_view()),
+    url(r'^company/(?P<company>[0-9a-zA-Z_-]+)/', views.ProductList.as_view()),
     #url(r'^$', TemplateView.as_view(template_name='static_pages/index.html'),name='home'),
 ]
 
