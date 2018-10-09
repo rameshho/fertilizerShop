@@ -27,12 +27,11 @@ urlpatterns = [
     #url('accounts/', include('django.contrib.auth.urls')),
     url('^', include('django.contrib.auth.urls')),
     url(r'^fertilizers/', include('fertilizers.urls', namespace='fertilizers')),
-    url(r'^companies/', views.CompanyList.as_view()),
-    url(r'^company/(?P<company>[0-9a-zA-Z_-]+)/', views.ProductList.as_view()),
+    url(r'^fertilizers/api/v1/', include('fertilizers.api.urls', namespace='api')),
     #url(r'^$', TemplateView.as_view(template_name='static_pages/index.html'),name='home'),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+#urlpatterns = format_suffix_patterns(urlpatterns)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

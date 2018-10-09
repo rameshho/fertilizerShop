@@ -1,11 +1,10 @@
 #serializer class converts a model to json data
 from rest_framework import serializers
-from .models import Product, Company
+from fertilizers.models import Product, Company
 
 class CompanySerializer(serializers.ModelSerializer):
     #products = serializers.HyperlinkedIdentityField('products', view_name='companies-list', lookup_field='company')
     #products = serializers.HyperlinkedIdentityField('products')
-
     class Meta:
         model = Company
         fields = ('id', 'Name', 'Amount_To_Pay')
