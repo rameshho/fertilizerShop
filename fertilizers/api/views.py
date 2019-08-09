@@ -7,9 +7,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http import Http404
 from django.core.urlresolvers import reverse_lazy
+from rest_framework.permissions import IsAuthenticated  # <-- Here
 
 
 class ProductList(APIView):
+    permission_classes = (IsAuthenticated,)  # <-- And here
     def get_object(self, company):
         try:
             return Product.objects.filter(company__Name=company)
@@ -37,6 +39,7 @@ class ProductList(APIView):
 
 #Access companies list through this api  http://127.0.0.1:8000/companies/?format=api
 class CompanyList(APIView):
+    permission_classes = (IsAuthenticated,)  # <-- And here
     #model = Company
     def get(self, request):
         companies = Company.objects.all()
