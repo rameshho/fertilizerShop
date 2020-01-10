@@ -1,4 +1,33 @@
-{% if product.productdetails_set.all %}
+{% extends 'fertilizers/base.html' %}
+{% block title %}{{ company.Name }} contains product {% endblock %}
+{% block product %}
+    <a href="{% url 'fertilizers:Add-product'  company.id %}">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Product
+    </a>
+{% endblock %}
+
+
+{% block body %}
+<div id='sidebar'>
+  <div class='toggle-btn' onclick="toggleSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul id="list-of-products">
+      {% for product in company.product_set.all %}
+      <form action="{% url 'fertilizers:Detail-product' product.id %}" method="get" style="display:inline">
+          {% csrf_token %}
+          <!--<li><a id='{{ product.Name }}' onclick="openCity(event, '{{ product.Name }}', '{{ product.id }}')">{{ product.Name }}</a></li>-->
+          <input type="hidden" name="product_id" value="product.id"/>
+          <button type="submit" class="btn btn-default btn-sm">{{ product.Name }}</button>
+      </form>
+      {% endfor %}
+  </ul>
+</div>
+
+<div id="main">
+{% if company.product_set.all %}
     <div class="container-fluid" style="background-color:lightblue">
         <h3>Below are the list of products of company {{ company.Name }}</h3>
         <p>Type something in the input field to search the table for name, product name, seller name:</p>
@@ -46,20 +75,13 @@
                 </td>
             </tr>
             {% endfor %}
+
             </tbody>
         </table>
     </div>
 {% else %}
     <h2>No products present for company {{ company.Name }}</h2>
 {% endif %}
+</div>
 
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+{% endblock %}
