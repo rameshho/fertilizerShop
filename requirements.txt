@@ -1,6 +1,7 @@
-Django==1.11.2
+-i https://pypi.org/simple/
 django-tables2==1.21.1
+django==1.11.28
 djangorestframework==3.7.7
 honcho==1.0.1
 pytz==2017.2
-uWSGI==2.0.15
+uwsgi==2.0.15
